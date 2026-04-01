@@ -1,0 +1,39 @@
+{{ define "main" }}
+  {{ $posts := where .Site.RegularPages "Section" "posts" }}
+  {{ $paginator := .Paginate $posts }}
+  {{ $months := slice "" "January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December" }}
+  {{ $grouped := $paginator.Pages.GroupByDate "2006-01" }}
+  {{ range $grouped }}
+    {{ $parts := split .Key "-" }}
+    {{ $monthNum := int (index $parts 1) }}
+    <div class="d-month-label">{{ index $parts 0 }} / {{ index $months $monthNum }}</div>
+    {{ range .Pages }}
+      <article class="post">
+        <div class="post-meta">{{ .Date.Format "2006.01.02" }} ({{ index (slice "Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat") .Date.Weekday }})</div>
+        <a href="{{ .Permalink }}" class="post-title">{{ .Title }}</a>
+        <div class="post-body">{{ .Content }}</div>
+        {{ range .Params.tags }}
+          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="post-tag">{{ . }}</a>
+        {{ end }}
+      </article>
+    {{ end }}
+  {{ end }}
+  {{ if gt $paginator.TotalPages 1 }}
+    <nav class="d-pagination">
+      {{ if $paginator.HasPrev }}
+        <a href="{{ $paginator.Prev.URL }}" class="pg-btn">&lsaquo;</a>
+      {{ end }}
+      {{ range $paginator.Pagers }}
+        {{ if eq . $paginator }}
+          <span class="pg-btn active">{{ .PageNumber }}</span>
+        {{ else }}
+          <a href="{{ .URL }}" class="pg-btn">{{ .PageNumber }}</a>
+        {{ end }}
+      {{ end }}
+      {{ if $paginator.HasNext }}
+        <a href="{{ $paginator.Next.URL }}" class="pg-btn">&rsaquo;</a>
+      {{ end }}
+      <span class="pg-note">{{ len $paginator.Pages }}件 / 全{{ $paginator.TotalNumberOfElements }}件</span>
+    </nav>
+  {{ end }}
+{{ end }}

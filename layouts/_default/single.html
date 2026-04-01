@@ -1,0 +1,19 @@
+{{ define "main" }}
+  <article class="post">
+    <div class="post-meta">{{ .Date.Format "2006.01.02" }} ({{ index (slice "Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat") .Date.Weekday }})</div>
+    <h1 class="post-title">{{ .Title }}</h1>
+    <div class="post-body">{{ .Content }}</div>
+    {{ range .Params.tags }}
+      <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="post-tag">{{ . }}</a>
+    {{ end }}
+  </article>
+  <nav class="d-pagination">
+    {{ with .PrevInSection }}
+      <a href="{{ .Permalink }}" class="pg-btn" title="{{ .Title }}">&lsaquo; 前</a>
+    {{ end }}
+    <a href="{{ "/" | relURL }}" class="pg-btn">一覧</a>
+    {{ with .NextInSection }}
+      <a href="{{ .Permalink }}" class="pg-btn" title="{{ .Title }}">次 &rsaquo;</a>
+    {{ end }}
+  </nav>
+{{ end }}

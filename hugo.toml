@@ -1,0 +1,17 @@
+baseURL = "https://example.com/"
+languageCode = "ja"
+title = "書き捨て帖"
+defaultContentLanguage = "ja"
+[pagination]
+  pagerSize = 3
+
+[params]
+  tagline = "創作メモ・日記・断片置き場"
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
