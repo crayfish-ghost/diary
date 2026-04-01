@@ -201,6 +201,26 @@ h1.post-title {
   color: #8a8780;
 }
 
+/* Blockquote */
+.post-body blockquote {
+  margin: 1.4em 0 1.4em 2em;
+  padding: 1em 1.4em;
+  border-left: 3px solid #3a3835;
+  background: #1f1e1b;
+  border-radius: 0 6px 6px 0;
+  color: #8a8780;
+  font-size: 0.82em;
+  line-height: 1.9;
+}
+
+.post-body blockquote p {
+  margin-bottom: 0.6em;
+}
+
+.post-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 /* Pagination */
 .d-pagination {
   display: flex;
