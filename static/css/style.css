@@ -201,6 +201,23 @@ h1.post-title {
   color: #8a8780;
 }
 
+/* Links in post body */
+.post-body a {
+  color: #8aaba0;
+  text-decoration: underline;
+  text-decoration-color: #3a4a45;
+  text-underline-offset: 3px;
+}
+
+.post-body a:hover {
+  color: #b0d0c4;
+  text-decoration-color: #6a8a80;
+}
+
+.post-body a:visited {
+  color: #7a8a8a;
+}
+
 /* Blockquote */
 .post-body blockquote {
   margin: 1.4em 0 1.4em 2em;
