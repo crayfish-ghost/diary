@@ -19,10 +19,10 @@
       <div class="site-tagline">{{ .Site.Params.tagline }}</div>
     </header>
     <div class="d-body">
-      {{ partial "sidebar.html" . }}
       <main class="d-main">
         {{ block "main" . }}{{ end }}
       </main>
+      {{ partial "sidebar.html" . }}
     </div>
     <footer class="d-footer">
       <span class="copy">&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</span>
@@ -34,5 +34,14 @@
       </div>
     </footer>
   </div>
+  <script>
+    document.querySelector('.sidebar-toggle')?.addEventListener('click', function() {
+      const content = document.getElementById('sidebar-content');
+      const expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !expanded);
+      content.classList.toggle('open');
+      this.querySelector('.sidebar-toggle-icon').textContent = expanded ? '▼' : '▲';
+    });
+  </script>
 </body>
 </html>

@@ -76,6 +76,7 @@ a {
   border-right: 1px solid #2e2d2a;
   padding: 28px 20px;
   background: #141412;
+  order: -1;
 }
 
 .d-sidebar h3 {
@@ -273,7 +274,16 @@ h1.post-title {
   color: #8a8780;
 }
 
-/* Responsive */
+/* Sidebar toggle (hidden on desktop) */
+.sidebar-toggle {
+  display: none;
+}
+
+.sidebar-content {
+  display: block;
+}
+
+/* Responsive — tablet */
 @media (max-width: 768px) {
   .d-body {
     flex-direction: column;
@@ -282,8 +292,44 @@ h1.post-title {
   .d-sidebar {
     width: 100%;
     border-right: none;
-    border-bottom: 1px solid #2e2d2a;
-    padding: 20px;
+    border-top: 1px solid #2e2d2a;
+    border-bottom: none;
+    padding: 16px 20px;
+    order: 0;
+  }
+
+  .sidebar-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: 1px solid #2e2d2a;
+    border-radius: 5px;
+    color: #8a8780;
+    font-size: 14px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .sidebar-toggle:hover {
+    background: #222220;
+    color: #c8c4bc;
+  }
+
+  .sidebar-toggle-icon {
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+
+  .sidebar-content {
+    display: none;
+    padding-top: 16px;
+  }
+
+  .sidebar-content.open {
+    display: block;
   }
 
   .d-main {
@@ -307,9 +353,79 @@ h1.post-title {
     font-size: 22px;
   }
 
+  .post {
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+  }
+
   .d-footer {
     padding: 16px 20px;
     flex-direction: column;
     gap: 8px;
+  }
+
+  .d-pagination {
+    flex-wrap: wrap;
+  }
+}
+
+/* Responsive — small phone */
+@media (max-width: 480px) {
+  .d-header {
+    padding: 16px;
+  }
+
+  .d-header .site-title {
+    font-size: 22px;
+  }
+
+  .d-header .site-tagline {
+    font-size: 13px;
+  }
+
+  .d-sidebar {
+    padding: 12px 16px;
+  }
+
+  .d-main {
+    padding: 20px 16px;
+  }
+
+  .post-title {
+    font-size: 20px;
+  }
+
+  .post-body {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+
+  .post-meta {
+    font-size: 13px;
+  }
+
+  .post-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .post {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+  }
+
+  .pg-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .d-footer {
+    padding: 14px 16px;
+  }
+
+  .d-footer .copy,
+  .d-footer .foot-links a {
+    font-size: 12px;
   }
 }
