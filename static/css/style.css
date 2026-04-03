@@ -166,6 +166,21 @@ a:hover { color: var(--link-hover); text-decoration: underline; }
   color: #b1bac4;
 }
 
+/* Blockquote */
+.post-body blockquote,
+.post-body pre blockquote {
+  border-left: 2px solid var(--meta);
+  padding: 12px 16px;
+  margin: 24px 0;
+  background: rgba(110, 118, 129, 0.1);
+  color: var(--fg);
+  font-style: italic;
+}
+.post-body blockquote pre,
+.post-body pre blockquote {
+  color: var(--fg);
+}
+
 /* Scanline */
 body::after {
   content: '';
