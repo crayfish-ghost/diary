@@ -1,0 +1,23 @@
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+{{ $now := now }}
+{{ $currentMonth := int ($now.Format "1") }}
+{{ $currentYear := int ($now.Format "2006") }}
+
+{{/* Collect all year-month pairs that have posts */}}
+{{ $activeMonths := dict }}
+{{ range $posts }}
+  {{ $key := .Date.Format "2006-01" }}
+  {{ $activeMonths = merge $activeMonths (dict $key true) }}
+{{ end }}
+
+{{/* Find min year */}}
+{{ $minYear := $currentYear }}
+{{ range $posts }}
+  {{ $y := int (.Date.Format "2006") }}
+  {{ if lt $y $minYear }}{{ $minYear = $y }}{{ end }}
+{{ end }}
+
+<nav class="archive-nav">
+<pre>{{ range $yi := seq $currentYear $minYear }}<span class="year-label">{{ $yi }}</span>  {{ range $m := seq 1 12 }}{{ $key := printf "%04d-%02d" $yi $m }}{{ $isFuture := or (gt $yi $currentYear) (and (eq $yi $currentYear) (gt $m $currentMonth)) }}{{ if $isFuture }}<span class="month-dim">{{ printf "%02d" $m }}</span>{{ else if isset $activeMonths $key }}{{ $isCurrentMonth := and (eq $yi $currentYear) (eq $m $currentMonth) }}{{ if $isCurrentMonth }}<span class="month-active">{{ printf "%02d" $m }}</span>{{ else }}<a href="{{ "/archives/" | relURL }}{{ printf "%04d/%02d/" $yi $m }}">{{ printf "%02d" $m }}</a>{{ end }}{{ else }}<span class="month-dim">{{ printf "%02d" $m }}</span>{{ end }}{{ if lt $m 12 }} {{ end }}{{ end }}
+{{ end }}</pre>
+</nav>

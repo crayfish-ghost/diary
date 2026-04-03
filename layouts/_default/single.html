@@ -1,19 +1,16 @@
 {{ define "main" }}
   <article class="post">
-    <div class="post-meta">{{ .Date.Format "2006.01.02" }} ({{ index (slice "Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat") .Date.Weekday }})</div>
-    <h1 class="post-title">{{ .Title }}</h1>
-    <div class="post-body">{{ .Content }}</div>
-    {{ range .Params.tags }}
-      <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="post-tag">{{ . }}</a>
+    <div class="post-header"><pre><span class="prompt-char">#</span> {{ .Title }}</pre></div>
+    <div class="post-date"><pre>{{ .Date.Format "2006-01-02" }} {{ lower (.Date.Format "Mon") }}</pre></div>
+    <div class="post-body">
+      {{ .Content }}
+    </div>
+    {{ with .Params.tags }}
+      <div class="post-tags"><pre>{{ range $i, $t := . }}{{ if $i }}  {{ end }}<a href="{{ "/tags/" | relURL }}{{ $t | urlize }}/">[{{ $t }}]</a>{{ end }}</pre></div>
     {{ end }}
   </article>
-  <nav class="d-pagination">
-    {{ with .PrevInSection }}
-      <a href="{{ .Permalink }}" class="pg-btn" title="{{ .Title }}">&lsaquo; 前</a>
-    {{ end }}
-    <a href="{{ "/" | relURL }}" class="pg-btn">一覧</a>
-    {{ with .NextInSection }}
-      <a href="{{ .Permalink }}" class="pg-btn" title="{{ .Title }}">次 &rsaquo;</a>
-    {{ end }}
+
+  <nav class="post-nav">
+<pre>{{ with .PrevInSection }}<a href="{{ .Permalink }}">&lt; {{ .Title }}</a>{{ end }}  <a href="{{ "/" | relURL }}">~/diary</a>  {{ with .NextInSection }}<a href="{{ .Permalink }}">{{ .Title }} &gt;</a>{{ end }}</pre>
   </nav>
 {{ end }}

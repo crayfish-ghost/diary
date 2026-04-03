@@ -2,11 +2,13 @@ baseURL = "https://yodogawa-diary.vercel.app/"
 languageCode = "ja"
 title = "河川敷日記"
 defaultContentLanguage = "ja"
+
 [pagination]
   pagerSize = 3
 
 [params]
-  tagline = "不定期・書き散らし・カレーうどん"
+  tagline = "不定期、書き散らし、あまいもの"
+  author = "淀川 桟"
 
 [taxonomies]
   tag = "tags"
@@ -15,3 +17,12 @@ defaultContentLanguage = "ja"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[mediaTypes]
+  [mediaTypes."text/html"]
+    suffixes = ["html"]
+
+[outputFormats]
+  [outputFormats.RSS]
+    mediaType = "application/rss+xml"
+    baseName = "rss"

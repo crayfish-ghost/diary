@@ -1,47 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
   {{ with .OutputFormats.Get "rss" }}
     <link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
   {{ end }}
 </head>
 <body>
-  <div class="d-wrap">
-    <header class="d-header">
-      <a href="{{ "/" | relURL }}" class="site-title">{{ .Site.Title }}</a>
-      <div class="site-tagline">{{ .Site.Params.tagline }}</div>
-    </header>
-    <div class="d-body">
-      <main class="d-main">
-        {{ block "main" . }}{{ end }}
-      </main>
-      {{ partial "sidebar.html" . }}
-    </div>
-    <footer class="d-footer">
-      <span class="copy">&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</span>
-      <div class="foot-links">
-        <a href="{{ "/about/" | relURL }}">about</a>
-        {{ with .OutputFormats.Get "rss" }}
-          <a href="{{ .Permalink }}">rss</a>
-        {{ end }}
-      </div>
-    </footer>
-  </div>
-  <script>
-    document.querySelector('.sidebar-toggle')?.addEventListener('click', function() {
-      const content = document.getElementById('sidebar-content');
-      const expanded = this.getAttribute('aria-expanded') === 'true';
-      this.setAttribute('aria-expanded', !expanded);
-      content.classList.toggle('open');
-      this.querySelector('.sidebar-toggle-icon').textContent = expanded ? '▼' : '▲';
-    });
-  </script>
+<div class="page">
+
+  <header class="site-header">
+<pre><a href="{{ "/" | relURL }}" class="title">{{ .Site.Title }}</a>
+{{ .Site.Params.tagline }}</pre>
+  </header>
+
+  <hr>
+
+  {{ block "main" . }}{{ end }}
+
+  <hr>
+
+  <footer class="footer-area">
+<pre>
+<a href="{{ "/about/" | relURL }}">about</a>  {{ with .OutputFormats.Get "rss" }}<a href="{{ .Permalink }}">rss.xml</a>{{ end }}
+</pre>
+
+    {{ partial "archive-nav.html" . }}
+  </footer>
+
+</div>
 </body>
 </html>

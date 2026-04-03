@@ -1,38 +1,23 @@
 {{ define "main" }}
+  <div class="post-header"><pre><span class="prompt-char">#</span> {{ .Title }}</pre></div>
+  <hr>
+
   {{ $paginator := .Paginate .Pages }}
-  {{ $months := slice "" "January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December" }}
-  {{ $grouped := $paginator.Pages.GroupByDate "2006-01" }}
-  {{ range $grouped }}
-    {{ $parts := split .Key "-" }}
-    {{ $monthNum := int (index $parts 1) }}
-    <div class="d-month-label">{{ index $parts 0 }} / {{ index $months $monthNum }}</div>
-    {{ range .Pages }}
-      <article class="post">
-        <div class="post-meta">{{ .Date.Format "2006.01.02" }} ({{ index (slice "Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat") .Date.Weekday }})</div>
-        <a href="{{ .Permalink }}" class="post-title">{{ .Title }}</a>
-        <div class="post-body">{{ .Summary }}</div>
-        {{ range .Params.tags }}
-          <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="post-tag">{{ . }}</a>
-        {{ end }}
-      </article>
-    {{ end }}
+  {{ range $paginator.Pages }}
+    <article class="post">
+      <div class="post-header"><pre><span class="prompt-char">#</span> <a href="{{ .Permalink }}">{{ .Title }}</a></pre></div>
+      <div class="post-date"><pre>{{ .Date.Format "2006-01-02" }} {{ lower (.Date.Format "Mon") }}</pre></div>
+      <div class="post-body">
+        {{ .Content }}
+      </div>
+      {{ with .Params.tags }}
+        <div class="post-tags"><pre>{{ range $i, $t := . }}{{ if $i }}  {{ end }}<a href="{{ "/tags/" | relURL }}{{ $t | urlize }}/">[{{ $t }}]</a>{{ end }}</pre></div>
+      {{ end }}
+    </article>
+    <hr>
   {{ end }}
+
   {{ if gt $paginator.TotalPages 1 }}
-    <nav class="d-pagination">
-      {{ if $paginator.HasPrev }}
-        <a href="{{ $paginator.Prev.URL }}" class="pg-btn">&lsaquo;</a>
-      {{ end }}
-      {{ range $paginator.Pagers }}
-        {{ if eq . $paginator }}
-          <span class="pg-btn active">{{ .PageNumber }}</span>
-        {{ else }}
-          <a href="{{ .URL }}" class="pg-btn">{{ .PageNumber }}</a>
-        {{ end }}
-      {{ end }}
-      {{ if $paginator.HasNext }}
-        <a href="{{ $paginator.Next.URL }}" class="pg-btn">&rsaquo;</a>
-      {{ end }}
-      <span class="pg-note">{{ len $paginator.Pages }}件 / 全{{ $paginator.TotalNumberOfElements }}件</span>
-    </nav>
+    {{ partial "pagination.html" $paginator }}
   {{ end }}
 {{ end }}

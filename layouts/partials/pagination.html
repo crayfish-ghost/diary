@@ -1,0 +1,5 @@
+<nav class="pagination">
+<pre>
+{{ if .HasPrev }}<a href="{{ .Prev.URL }}">&lt; prev</a>{{ else }}<span class="page-dim">&lt; prev</span>{{ end }}  {{ range .Pagers }}{{ if eq .PageNumber $.PageNumber }}<span class="page-current">[{{ .PageNumber }}]</span>{{ else }}<a href="{{ .URL }}">{{ .PageNumber }}</a>{{ end }} {{ end }} {{ if .HasNext }}<a href="{{ .Next.URL }}">next &gt;</a>{{ else }}<span class="page-dim">next &gt;</span>{{ end }}
+</pre>
+</nav>
